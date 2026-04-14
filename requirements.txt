@@ -1,22 +1,21 @@
-# Production Requirements
 # Core FastAPI
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
 pydantic==2.7.0
-pydantic-settings==2.1.0
-
+pydantic-settings==2.3.0
 
 # ML Libraries
 pandas==2.2.3
 numpy==1.26.4
 scikit-learn==1.5.0
+scipy==1.13.0              # ← ADDED (required by scikit-learn)
 
 # Data visualization (for training only)
 matplotlib==3.8.2
 seaborn==0.13.0
 
 # HTTP
-python-multipart==0.0.6
+python-multipart==0.0.9    # ← BUMPED (security fix)
 httpx==0.26.0
 
 # Monitoring & Logging
@@ -26,28 +25,27 @@ python-json-logger==2.0.7
 # Database (Optional)
 psycopg2-binary==2.9.9
 sqlalchemy==2.0.25
-alembic==1.13.1
+alembic==1.13.4            # ← BUMPED (bug fix)
 
 # Redis (Optional)
 redis==5.0.1
 hiredis==2.3.2
 
 # Security
+cryptography==42.0.5       # ← ADDED (pin transitive dep)
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
+bcrypt==4.0.1              # ← ADDED (passlib compatibility)
 
 # Testing
 pytest==7.4.4
-pytest-asyncio==0.23.3
+pytest-asyncio==0.21.1     # ← DOWNGRADED (avoids config conflict)
 pytest-cov==4.1.0
 
 # Code Quality
-
 flake8==7.0.0
 isort==5.13.2
 mypy==1.8.0
-
-
 
 # Performance
 gunicorn==21.2.0
