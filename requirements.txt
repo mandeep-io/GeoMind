@@ -8,11 +8,13 @@ pydantic-settings==2.3.0
 pandas==2.2.3
 numpy==1.26.4
 scikit-learn==1.5.0
-scipy==1.13.0              # ← ADDED (required by scikit-learn)
+scipy==1.13.0 
+# ← ADDED (required by scikit-learn)
 
 # Data visualization (for training only)
 matplotlib==3.8.2
 seaborn==0.13.0
+reportlab==4.0.9
 
 # HTTP
 python-multipart==0.0.9    # ← BUMPED (security fix)
