@@ -54,6 +54,18 @@ class Settings(BaseSettings):
     CACHE_PREDICTIONS: bool = True
     CACHE_TTL_SECONDS: int = 3600
     ALLOWED_ORIGINS: List[str] = ["*"]
+
+    # Serve static files (HTML, CSS, JS)
+@app.get("/", include_in_schema=False)
+async def serve_index():
+    return FileResponse("index.html")
+
+@app.get("/admin", include_in_schema=False)
+async def serve_admin():
+    return FileResponse("admin.html")
+
+# Mount static files for CSS, JS, images, etc.
+app.mount("/static", StaticFiles(directory="."), name="static")
     
     class Config:
         env_file = ".env"
