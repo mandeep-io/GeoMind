@@ -11,7 +11,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Configuration
-DATA_PATH = '/Users/demo/ptu/testfile2.csv'
+DATA_PATH = 'testfile2.csv'
 RANDOM_STATE = 57
 
 class ImprovedMultiPropertyPredictor:
