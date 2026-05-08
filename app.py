@@ -54,18 +54,6 @@ class Settings(BaseSettings):
     CACHE_PREDICTIONS: bool = True
     CACHE_TTL_SECONDS: int = 3600
     ALLOWED_ORIGINS: List[str] = ["*"]
-
-    # Serve static files (HTML, CSS, JS)
-@app.get("/", include_in_schema=False)
-async def serve_index():
-    return FileResponse("index.html")
-
-@app.get("/admin", include_in_schema=False)
-async def serve_admin():
-    return FileResponse("admin.html")
-
-# Mount static files for CSS, JS, images, etc.
-app.mount("/static", StaticFiles(directory="."), name="static")
     
     class Config:
         env_file = ".env"
@@ -96,6 +84,18 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+
+# ✅ SERVE STATIC FILES (HTML, CSS, JS) - AFTER app is initialized
+@app.get("/", include_in_schema=False)
+async def serve_index():
+    return FileResponse("index.html")
+
+@app.get("/admin", include_in_schema=False)
+async def serve_admin():
+    return FileResponse("admin.html")
+
+# Mount static files for CSS, JS, images, etc.
+app.mount("/static", StaticFiles(directory="."), name="static")
 
 # Middleware Configuration
 app.add_middleware(
@@ -390,9 +390,6 @@ def generate_pdf_report(pdf_data):
     doc.build(story)
     return buffer.getvalue()
 
-
-
-
 # Initialize predictor
 predictor = SoilPredictor()
 
@@ -432,7 +429,7 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 # API Endpoints
-@app.get("/", tags=["Root"])
+@app.get("/api/home", tags=["Root"])
 async def root():
     """Root endpoint with API information"""
     return {
@@ -575,11 +572,6 @@ async def get_properties():
         "units": predictor.units
     }
 
-
-
-
-
-
 @app.get("/api/model-info", tags=["Information"])
 async def model_info():
     """Get detailed model information"""
@@ -601,6 +593,7 @@ async def model_info():
                          else 'Low'
         }
     return info
+
 @app.post("/api/generate-pdf", tags=["Reports"])
 async def generate_pdf_endpoint(request: PredictionRequest):
     """Generate PDF report"""
