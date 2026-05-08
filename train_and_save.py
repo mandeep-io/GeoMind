@@ -8,7 +8,7 @@ import os
 from punjab_soil_ml import ImprovedMultiPropertyPredictor
 
 # Configuration
-DATA_PATH = '/Users/demo/ptu/testfile2.csv'
+DATA_PATH = 'testfile2.csv'
 MODEL_DIR = 'models'
 
 def save_models(predictor, model_dir='models'):
