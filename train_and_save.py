@@ -36,10 +36,16 @@ def main():
     print("="*70)
     print("TRAINING AND SAVING MODELS FOR PRODUCTION")
     print("="*70)
-    
+
+    # Guard: verify the training data file exists before proceeding
+    if not os.path.exists(DATA_PATH):
+        print(f"❌ Training data not found: '{DATA_PATH}'")
+        print(f"   Place testfile2.csv in the same directory as this script and re-run.")
+        return
+
     # Initialize predictor
     predictor = ImprovedMultiPropertyPredictor()
-    
+
     # Load data
     print("\n📁 Loading data...")
     data = predictor.load_data(DATA_PATH)
